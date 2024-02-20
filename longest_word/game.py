@@ -10,14 +10,26 @@ class Game:
 
     def is_valid(self, word: str) -> bool:
         """Return True if and only if the word is valid, given the Game's grid"""
-        return all(word.count(char) <= self.grid.count(char) for char in set(word))
+        if not word:
+            return False
+        letters = self.grid.copy() # Consume letters from the grid
+        for letter in word:
+            if letter in letters:
+                letters.remove(letter)
+            else:
+                return False
+        return True
 
+"""
 game = Game()
-
 print(f"Grid: {game.grid}")
-
 my_word = "SHOE"
-
 result = game.is_valid(my_word)
+print(f"The word '{my_word}' is valid: {result}")
+"""
 
+new_game = Game()
+new_game.grid = list('KWIENFUQW')
+my_word = "FEUN"
+result = new_game.is_valid(my_word)
 print(f"The word '{my_word}' is valid: {result}")
